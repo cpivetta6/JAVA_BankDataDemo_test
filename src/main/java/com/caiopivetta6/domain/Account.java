@@ -8,6 +8,14 @@ public abstract class Account {
 	private Integer id;
 	private double balance;
 	
+	
+	
+	public Account(Integer id, double balance) {
+		super();
+		this.id = id;
+		this.balance = balance;
+	}
+
 	public Account() {
 		
 	}
