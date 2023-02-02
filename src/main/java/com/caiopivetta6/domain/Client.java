@@ -5,10 +5,18 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.CollectionTable;
+import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -27,11 +35,21 @@ public class Client implements Serializable{
 	private Integer acc;
 	private String email;
 	
+	@ElementCollection
+	@CollectionTable(name = "phone")
 	private List<String> phone = new ArrayList<>();
 	
-	private AccountSaving accountSaving;
-	private AccountSpecial accountSpecial;
+	@OneToOne(cascade = CascadeType.ALL, mappedBy = "client")
+	private Account account;
 	
+	@ManyToOne
+	@JoinColumn(name = "BankAgency")
+	private BankAgency bankAgency;
+	
+	@JsonManagedReference
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "address_id")
+	private Address address;
 	
 	public Client() {
 		
@@ -45,7 +63,22 @@ public class Client implements Serializable{
 		this.email = email;
 	}
 	
-	
+
+	public BankAgency getBankAgency() {
+		return bankAgency;
+	}
+
+	public void setBankAgency(BankAgency bankAgency) {
+		this.bankAgency = bankAgency;
+	}
+
+	public Account getAccount() {
+		return account;
+	}
+
+	public void setAccount(Account account) {
+		this.account = account;
+	}
 
 	public Integer getId() {
 		return id;

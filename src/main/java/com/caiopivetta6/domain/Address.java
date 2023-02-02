@@ -41,6 +41,10 @@ public class Address implements Serializable{
 	@OneToOne(mappedBy = "address")
 	private Client client;
 	
+	@OneToOne(mappedBy = "address")
+	private BankAgency bankAgency;
+	
+	
 	public Address() {
 		
 	}
@@ -57,7 +61,14 @@ public class Address implements Serializable{
 	
 	
 	
-	
+
+	public BankAgency getBankAgency() {
+		return bankAgency;
+	}
+
+	public void setBankAgency(BankAgency bankAgency) {
+		this.bankAgency = bankAgency;
+	}
 
 	public Client getClient() {
 		return client;

@@ -4,7 +4,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "AccountSpecial")
 public class AccountSpecial extends Account {
 	
 	private Double limit;
@@ -27,9 +26,6 @@ public class AccountSpecial extends Account {
 	public void setLimit(Double limit) {
 		this.limit = limit;
 	}
-	
-	
-	
 	
 	
 	

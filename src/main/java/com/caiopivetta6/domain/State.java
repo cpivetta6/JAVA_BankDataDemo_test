@@ -5,10 +5,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -23,7 +26,8 @@ public class State implements Serializable{
 	private Integer id;
 	private String name;
 	
-
+	@JsonBackReference
+	@OneToMany(mappedBy = "state")
 	private List<City> city = new ArrayList<>();
 	
 	public State() {

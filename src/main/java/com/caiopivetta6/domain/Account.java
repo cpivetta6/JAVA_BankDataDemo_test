@@ -3,14 +3,22 @@ package com.caiopivetta6.domain;
 import java.io.Serializable;
 import java.util.Objects;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.Inheritance;
+import jakarta.persistence.InheritanceType;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.MapsId;
+import jakarta.persistence.OneToOne;
 
 @Entity
-@Table(name = "Account")
+@Inheritance(strategy = InheritanceType.JOINED)
 public abstract class Account implements Serializable{
 
 	
@@ -21,6 +29,15 @@ public abstract class Account implements Serializable{
 	private Integer id;
 	private double balance;
 	
+	@JsonIgnore
+	@ManyToOne
+	@JoinColumn(name = "account_id")
+	@MapsId
+	private BankAgency bankAgency;
+	
+	
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "account_id")
 	private Client client;
 	
 	

@@ -5,10 +5,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -23,9 +29,16 @@ public class BankAgency implements Serializable{
 	private String name;
 	private Integer agencyNumber;
 	
+	@OneToMany(mappedBy = "bankAgency")
 	private List<Client> clients = new ArrayList<>();
 	
+	@JsonManagedReference
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "address_id")
 	private Address address;
+	
+	@OneToMany(mappedBy = "bankAgency")
+	private List<Account> accounts = new ArrayList<>();
 	
 	public BankAgency() {
 		
@@ -38,6 +51,16 @@ public class BankAgency implements Serializable{
 		this.agencyNumber = agencyNumber;
 	}
 	
+	
+	
+
+	public List<Account> getAccounts() {
+		return accounts;
+	}
+
+	public void setAccounts(List<Account> accounts) {
+		this.accounts = accounts;
+	}
 
 	public List<Client> getClients() {
 		return clients;
