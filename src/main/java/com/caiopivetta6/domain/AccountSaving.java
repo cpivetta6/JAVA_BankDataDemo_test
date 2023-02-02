@@ -1,10 +1,14 @@
 package com.caiopivetta6.domain;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name = "AccountSaving")
 public class AccountSaving extends Account {
 	
 	
 	private Integer yieldDays;
-	
 	
 	public AccountSaving() {
 		super();

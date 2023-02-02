@@ -1,13 +1,27 @@
 package com.caiopivetta6.domain;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public abstract class Account {
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name = "Account")
+public abstract class Account implements Serializable{
 
 	
+	private static final long serialVersionUID = 1L;
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private double balance;
 	
+	private Client client;
 	
 	
 	public Account(Integer id, double balance) {
@@ -15,6 +29,8 @@ public abstract class Account {
 		this.id = id;
 		this.balance = balance;
 	}
+	
+	
 
 	public Account() {
 		
@@ -36,6 +52,17 @@ public abstract class Account {
 		this.balance = balance;
 	}
 
+
+	public Client getClient() {
+		return client;
+	}
+
+
+	public void setClient(Client client) {
+		this.client = client;
+	}
+
+		
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);

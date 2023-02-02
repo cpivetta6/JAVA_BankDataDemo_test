@@ -1,5 +1,10 @@
 package com.caiopivetta6.domain;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name = "AccountSpecial")
 public class AccountSpecial extends Account {
 	
 	private Double limit;

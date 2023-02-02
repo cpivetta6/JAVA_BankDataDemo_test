@@ -12,38 +12,47 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "state_tb")
-public class State implements Serializable{
+@Table(name = "BankAgency_tb")
+public class BankAgency implements Serializable{
 
-	
 	private static final long serialVersionUID = 1L;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private String name;
+	private Integer agencyNumber;
 	
-
-	private List<City> city = new ArrayList<>();
+	private List<Client> clients = new ArrayList<>();
 	
-	public State() {
+	private Address address;
+	
+	public BankAgency() {
 		
 	}
 
-	public State(Integer id, String name) {
+	public BankAgency(Integer id, String name, Integer agencyNumber) {
 		super();
 		this.id = id;
 		this.name = name;
+		this.agencyNumber = agencyNumber;
 	}
 	
-	
 
-	public List<City> getCity() {
-		return city;
+	public List<Client> getClients() {
+		return clients;
 	}
 
-	public void setCity(List<City> city) {
-		this.city = city;
+	public void setClients(List<Client> clients) {
+		this.clients = clients;
+	}
+
+	public Address getAddress() {
+		return address;
+	}
+
+	public void setAddress(Address address) {
+		this.address = address;
 	}
 
 	public Integer getId() {
@@ -62,6 +71,14 @@ public class State implements Serializable{
 		this.name = name;
 	}
 
+	public Integer getAgencyNumber() {
+		return agencyNumber;
+	}
+
+	public void setAgencyNumber(Integer agencyNumber) {
+		this.agencyNumber = agencyNumber;
+	}
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);
@@ -75,7 +92,7 @@ public class State implements Serializable{
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		State other = (State) obj;
+		BankAgency other = (BankAgency) obj;
 		return Objects.equals(id, other.id);
 	}
 	
