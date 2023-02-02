@@ -7,6 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.caiopivetta6.domain.Address;
 import com.caiopivetta6.domain.City;
+import com.caiopivetta6.domain.Client;
 import com.caiopivetta6.domain.State;
 import com.caiopivetta6.repositories.AccountRepository;
 import com.caiopivetta6.repositories.AddressRepository;
@@ -41,17 +42,22 @@ public class BankDataDemoApplication implements CommandLineRunner {
 	public void run(String... args) throws Exception {
 		// TODO Auto-generated method stub
 		
+		//State and City
 		
 		State state = new State(null, "Veneto");
 		City city = new City(null, "Verona", state);
 		
-		
 		stateRepository.save(state);
 		cityRepository.save(city);
 		
-		
 		Address address1 = new Address(null, "Corso Porta Nuova", "Borgo Venezia", "72", "31412", city);
 		addressRepository.save(address1);
+		
+		//Client
+		
+		Client client = new Client();
+		
+		
 		
 		
 		
