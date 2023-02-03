@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -29,7 +31,7 @@ public class BankAgency implements Serializable{
 	private Integer agencyNumber;
 	
 	
-	
+	@JsonIgnore
 	@OneToMany(cascade = CascadeType.DETACH, mappedBy = "bankAgency")
 	private List<Client> clients = new ArrayList<>();
 	

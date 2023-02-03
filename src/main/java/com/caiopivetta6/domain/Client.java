@@ -42,10 +42,11 @@ public class Client implements Serializable{
 	@JoinColumn(name = "address_id")
 	private Address address;
 	
-	
+	@JsonManagedReference
 	@OneToOne(cascade = CascadeType.ALL, mappedBy = "client")
 	private BankAccount bankAccount;
 	
+	@JsonManagedReference
 	@ManyToOne
 	@JoinColumn(name = "bankagency_id")
 	private BankAgency bankAgency;

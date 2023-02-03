@@ -71,6 +71,7 @@ public class BankDataDemoApplication implements CommandLineRunner {
 		Client client1 = new Client(null, "Carl Jung", "carl@gmail.com", address1);
 		Client client2 = new Client(null, "July Jung", "july@gmail.com", address1);
 		
+		client1.getPhone().add("3451234123");
 		
 		
 		//BANK
