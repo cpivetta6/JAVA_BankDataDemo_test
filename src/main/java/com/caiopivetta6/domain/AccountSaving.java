@@ -1,23 +1,20 @@
 package com.caiopivetta6.domain;
 
 import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
 
 @Entity
-public class AccountSaving extends Account {
+public class AccountSaving extends BankAccount {
 	
-	
+	private static final long serialVersionUID = 1L;
 	private Integer yieldDays;
 	
 	public AccountSaving() {
-		super();
-		// TODO Auto-generated constructor stub
+		
 	}
 	
-	public AccountSaving(Integer id, double balance, Integer yieldDays) {
-		super(id, balance);
+	public AccountSaving(Integer id, Double balance, Client client,  Integer yieldDays) {
+		super(id, balance, client);
 		this.yieldDays = yieldDays;
-		// TODO Auto-generated constructor stub
 	}
 	
 	public Integer getYieldDays() {
@@ -27,7 +24,6 @@ public class AccountSaving extends Account {
 	public void setYieldDays(Integer yieldDays) {
 		this.yieldDays = yieldDays;
 	}
-	
 	
 	
 	

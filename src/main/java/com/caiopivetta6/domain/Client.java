@@ -23,45 +23,46 @@ import jakarta.persistence.Table;
 @Table(name = "Client_tb")
 public class Client implements Serializable{
 
-	/**
-	 * 
-	 */
+	
 	private static final long serialVersionUID = 1L;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private String name;
-	private Integer acc;
 	private String email;
 	
 	@ElementCollection
 	@CollectionTable(name = "phone")
 	private List<String> phone = new ArrayList<>();
 	
-	@OneToOne(cascade = CascadeType.ALL, mappedBy = "client")
-	private Account account;
-	
-	@ManyToOne
-	@JoinColumn(name = "BankAgency")
-	private BankAgency bankAgency;
 	
 	@JsonManagedReference
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne(cascade = CascadeType.MERGE)
 	@JoinColumn(name = "address_id")
 	private Address address;
+	
+	
+	@OneToOne(cascade = CascadeType.ALL, mappedBy = "client")
+	private BankAccount bankAccount;
+	
+	@ManyToOne
+	@JoinColumn(name = "bankagency_id")
+	private BankAgency bankAgency;
 	
 	public Client() {
 		
 	}
 
-	public Client(Integer id, String name, Integer acc, String email) {
+	public Client(Integer id, String name, String email, Address address) {
 		super();
 		this.id = id;
 		this.name = name;
-		this.acc = acc;
 		this.email = email;
+		this.address = address;
 	}
+	
+	
 	
 
 	public BankAgency getBankAgency() {
@@ -72,13 +73,15 @@ public class Client implements Serializable{
 		this.bankAgency = bankAgency;
 	}
 
-	public Account getAccount() {
-		return account;
+	public Address getAddress() {
+		return address;
 	}
 
-	public void setAccount(Account account) {
-		this.account = account;
+	public void setAddress(Address address) {
+		this.address = address;
 	}
+	
+
 
 	public Integer getId() {
 		return id;
@@ -96,13 +99,7 @@ public class Client implements Serializable{
 		this.name = name;
 	}
 
-	public Integer getAcc() {
-		return acc;
-	}
-
-	public void setAcc(Integer acc) {
-		this.acc = acc;
-	}
+	
 
 	public String getEmail() {
 		return email;
@@ -118,6 +115,16 @@ public class Client implements Serializable{
 
 	public void setPhone(List<String> phone) {
 		this.phone = phone;
+	}
+
+	
+	
+	public BankAccount getBankAccount() {
+		return bankAccount;
+	}
+
+	public void setBankAccount(BankAccount bankAccount) {
+		this.bankAccount = bankAccount;
 	}
 
 	@Override

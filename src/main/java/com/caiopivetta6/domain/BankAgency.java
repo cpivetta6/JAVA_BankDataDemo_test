@@ -5,10 +5,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -29,16 +28,10 @@ public class BankAgency implements Serializable{
 	private String name;
 	private Integer agencyNumber;
 	
-	@OneToMany(mappedBy = "bankAgency")
+	
+	
+	@OneToMany(cascade = CascadeType.DETACH, mappedBy = "bankAgency")
 	private List<Client> clients = new ArrayList<>();
-	
-	@JsonManagedReference
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "address_id")
-	private Address address;
-	
-	@OneToMany(mappedBy = "bankAgency")
-	private List<Account> accounts = new ArrayList<>();
 	
 	public BankAgency() {
 		
@@ -49,33 +42,17 @@ public class BankAgency implements Serializable{
 		this.id = id;
 		this.name = name;
 		this.agencyNumber = agencyNumber;
-	}
-	
-	
-	
-
-	public List<Account> getAccounts() {
-		return accounts;
+		
 	}
 
-	public void setAccounts(List<Account> accounts) {
-		this.accounts = accounts;
-	}
 
+	
 	public List<Client> getClients() {
 		return clients;
 	}
 
 	public void setClients(List<Client> clients) {
 		this.clients = clients;
-	}
-
-	public Address getAddress() {
-		return address;
-	}
-
-	public void setAddress(Address address) {
-		this.address = address;
 	}
 
 	public Integer getId() {

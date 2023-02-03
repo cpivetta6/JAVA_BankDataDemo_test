@@ -3,9 +3,8 @@ package com.caiopivetta6.domain;
 import java.io.Serializable;
 import java.util.Objects;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -19,39 +18,35 @@ import jakarta.persistence.OneToOne;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
-public abstract class Account implements Serializable{
-
+public abstract class BankAccount implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	private double balance;
+	private Double balance;
 	
-	@JsonIgnore
-	@ManyToOne
-	@JoinColumn(name = "account_id")
+	@JsonBackReference
+	@OneToOne
+	@JoinColumn(name = "client_id")
 	@MapsId
-	private BankAgency bankAgency;
-	
-	
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "account_id")
 	private Client client;
 	
 	
-	public Account(Integer id, double balance) {
+	public BankAccount() {
+		
+	}
+
+	
+	public BankAccount(Integer id, Double balance, Client client) {
 		super();
 		this.id = id;
 		this.balance = balance;
+		this.setClient(client);
 	}
-	
-	
 
-	public Account() {
-		
-	}
+	
 
 	public Integer getId() {
 		return id;
@@ -61,15 +56,17 @@ public abstract class Account implements Serializable{
 		this.id = id;
 	}
 
-	public double getBalance() {
+	public Double getBalance() {
 		return balance;
 	}
 
-	public void setBalance(double balance) {
+	public void setBalance(Double balance) {
 		this.balance = balance;
 	}
-
-
+	
+	
+	
+		
 	public Client getClient() {
 		return client;
 	}
@@ -79,7 +76,7 @@ public abstract class Account implements Serializable{
 		this.client = client;
 	}
 
-		
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);
@@ -93,7 +90,7 @@ public abstract class Account implements Serializable{
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Account other = (Account) obj;
+		BankAccount other = (BankAccount) obj;
 		return Objects.equals(id, other.id);
 	}
 	
